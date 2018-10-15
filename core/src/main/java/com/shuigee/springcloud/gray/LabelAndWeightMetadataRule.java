@@ -1,14 +1,18 @@
 package com.shuigee.springcloud.gray;
 
+import com.netflix.appinfo.InstanceInfo;
 import com.netflix.loadbalancer.Server;
 import com.netflix.loadbalancer.ZoneAvoidanceRule;
 import com.netflix.niws.loadbalancer.DiscoveryEnabledServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
 
 public class LabelAndWeightMetadataRule extends ZoneAvoidanceRule {
+    private static final Logger logger = LoggerFactory.getLogger(LabelAndWeightMetadataRule.class);
     public static final String META_DATA_KEY_LABEL_AND = "labelAnd";
     public static final String META_DATA_KEY_LABEL_OR = "labelOr";
 
@@ -18,7 +22,9 @@ public class LabelAndWeightMetadataRule extends ZoneAvoidanceRule {
 
     @Override
     public Server choose(Object key) {
+        logger.info("自定义服务选择器");
         List<Server> serverList = this.getPredicate().getEligibleServers(this.getLoadBalancer().getAllServers(), key);
+
         if (CollectionUtils.isEmpty(serverList)) {
             return null;
         }
@@ -29,6 +35,12 @@ public class LabelAndWeightMetadataRule extends ZoneAvoidanceRule {
         if (CoreHeaderInterceptor.label.get() != null && !CoreHeaderInterceptor.label.get().isEmpty()) {
             servers = new ArrayList<>();
             for (Server server : serverList) {
+                InstanceInfo instanceInfo = ((DiscoveryEnabledServer) server).getInstanceInfo();
+                // 只处理DB层
+                if (!instanceInfo.getAppName().toUpperCase().startsWith("REPOSITORY-DATABASE")) {
+                    servers.add(server);
+                    continue;
+                }
                 Map<String, String> metadata = ((DiscoveryEnabledServer) server).getInstanceInfo().getMetadata();
 
                 // 优先匹配label

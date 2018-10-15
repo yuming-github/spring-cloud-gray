@@ -3,13 +3,10 @@ package com.shuigee.springcloud.gray.zuul.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.shuigee.springcloud.gray.CoreHeaderInterceptor;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
-import org.springframework.http.HttpHeaders;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 public class GrayFilter extends ZuulFilter {
@@ -35,7 +32,7 @@ public class GrayFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 0;
+        return 1020;
     }
 
     @Override
@@ -46,16 +43,19 @@ public class GrayFilter extends ZuulFilter {
     @Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        HttpServletRequest request = ctx.getRequest();
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+//        HttpServletRequest request = ctx.getRequest();
+//        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+//        String token = request.getHeader("organizationCode");
 
         logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        String labels = TOKEN_LABEL_MAP.get(token);
-
-        if (StringUtils.isEmpty(labels)) {
-            labels = DEFAULT_LABEL;
-        }
-
+//        String labels = TOKEN_LABEL_MAP.get(token);
+//
+//        if (StringUtils.isEmpty(labels)) {
+//            labels = DEFAULT_LABEL;
+//        }
+        String token = ctx.getZuulRequestHeaders().get("organizationcode");
+        logger.info("organizationCode: {}", token);
+        String labels = token;
         CoreHeaderInterceptor.initHystrixRequestContext(labels); // zuul本身调用微服务
         ctx.addZuulRequestHeader(CoreHeaderInterceptor.HEADER_LABEL, labels); // 传递给后续微服务
         logger.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");

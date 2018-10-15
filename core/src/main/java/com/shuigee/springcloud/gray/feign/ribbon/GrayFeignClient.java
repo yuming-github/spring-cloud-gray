@@ -1,5 +1,6 @@
 package com.shuigee.springcloud.gray.feign.ribbon;
 
+import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import com.shuigee.springcloud.gray.CoreHeaderInterceptor;
 import feign.Client;
 import feign.Request;
@@ -28,12 +29,19 @@ public class GrayFeignClient implements Client {
         String header = StringUtils.collectionToDelimitedString(CoreHeaderInterceptor.label.get(), CoreHeaderInterceptor.HEADER_LABEL_SPLIT);
         logger.info("服务调用(F) -- {}, {}, label: {}", request.method(), request.url(), header);
 
+        // TODO shirorealm
+        if (!HystrixRequestContext.isCurrentThreadInitialized()) {
+            HystrixRequestContext.initializeContext();
+        }
         try {
             Map<String, Collection<String>> headers = new HashMap<>(request.headers());
             headers.put(CoreHeaderInterceptor.HEADER_LABEL, CoreHeaderInterceptor.label.get());
             Request modifiedRequest = Request.create(request.method(), request.url(), headers, request.body(), request.charset());
 
             return delegate.execute(modifiedRequest, options);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            throw e;
         } finally {
         }
 
