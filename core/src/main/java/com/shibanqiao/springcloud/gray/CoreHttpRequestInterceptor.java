@@ -1,4 +1,4 @@
-package com.shuigee.springcloud.gray;
+package com.shibanqiao.springcloud.gray;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

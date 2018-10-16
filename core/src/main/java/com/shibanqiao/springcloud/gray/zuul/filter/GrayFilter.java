@@ -1,8 +1,8 @@
-package com.shuigee.springcloud.gray.zuul.filter;
+package com.shibanqiao.springcloud.gray.zuul.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.shuigee.springcloud.gray.CoreHeaderInterceptor;
+import com.shibanqiao.springcloud.gray.CoreHeaderInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;

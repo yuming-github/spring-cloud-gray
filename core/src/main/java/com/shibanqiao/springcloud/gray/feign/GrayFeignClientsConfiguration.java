@@ -1,6 +1,6 @@
-package com.shuigee.springcloud.gray.feign;
+package com.shibanqiao.springcloud.gray.feign;
 
-import com.shuigee.springcloud.gray.feign.ribbon.GrayFeignClient;
+import com.shibanqiao.springcloud.gray.feign.ribbon.GrayFeignClient;
 import feign.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

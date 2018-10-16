@@ -1,4 +1,4 @@
-package com.shuigee.springcloud.gray;
+package com.shibanqiao.springcloud.gray;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.ribbon.DefaultPropertiesFactory;

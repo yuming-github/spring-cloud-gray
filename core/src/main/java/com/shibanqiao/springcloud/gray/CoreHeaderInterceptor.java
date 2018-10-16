@@ -1,4 +1,4 @@
-package com.shuigee.springcloud.gray;
+package com.shibanqiao.springcloud.gray;
 
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestVariableDefault;

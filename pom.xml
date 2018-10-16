@@ -9,20 +9,20 @@
         <version>1.5.3.RELEASE</version>
     </parent>
 
-    <groupId>com.shuige</groupId>
+    <groupId>com.shibanqiao</groupId>
     <artifactId>spring-cloud-gray</artifactId>
     <version>1.0.0</version>
 
 
     <packaging>pom</packaging>
 
-    <description>shuige project</description>
-    <url>http://www.dzzd.com</url>
+    <description>shibanqiao project</description>
+    <url>http://www.shibanqiao.com</url>
     <inceptionYear>2017-2022</inceptionYear>
 
     <organization>
-        <name>税鸽飞腾</name>
-        <url>http://www.dzzd.com</url>
+        <name>石板桥</name>
+        <url>http://www.shibanqiao.com</url>
     </organization>
 
     <properties>

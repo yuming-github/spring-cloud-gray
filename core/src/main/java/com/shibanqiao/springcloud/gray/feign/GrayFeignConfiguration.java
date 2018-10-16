@@ -1,4 +1,4 @@
-package com.shuigee.springcloud.gray.feign;
+package com.shibanqiao.springcloud.gray.feign;
 
 import com.netflix.loadbalancer.ILoadBalancer;
 import feign.Feign;

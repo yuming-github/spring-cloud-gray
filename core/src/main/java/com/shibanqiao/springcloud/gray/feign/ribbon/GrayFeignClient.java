@@ -1,7 +1,7 @@
-package com.shuigee.springcloud.gray.feign.ribbon;
+package com.shibanqiao.springcloud.gray.feign.ribbon;
 
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
-import com.shuigee.springcloud.gray.CoreHeaderInterceptor;
+import com.shibanqiao.springcloud.gray.CoreHeaderInterceptor;
 import feign.Client;
 import feign.Request;
 import feign.Response;
